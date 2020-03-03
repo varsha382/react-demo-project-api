@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Card, CardTitle, FormText } from 'reactstrap';
+import { sendSignUpInformation } from './Api'
 import '../style/signUp.css'
 
 
@@ -29,7 +30,39 @@ class SignUp extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    let {userNameError, userEmailError, passwordError, confirmPasswordError}  = this.state
+    sendSignUpInformation(this.state, (response) => {
+      const items = Object.entries(response);
+      items.map(item => {
+        switch(item[0]){
+          case 'user_name':{
+            userNameError = item[1][0]
+            break;
+          }
+          case 'email':{
+            userEmailError = item[1][0]
+            break;
+          }
+          case 'password':{
+            passwordError = item[1][0]
+            break;
+          }
+          case 'password_confirmation':{
+            confirmPasswordError = item[1][0]
+            break;
+          }
+        }
+      })
 
+      this.setState({userNameError, userEmailError, passwordError, confirmPasswordError});
+    }, () => {
+      this.setState({
+        userName: '',
+        userEmail: '',
+        password: '',
+        confirmPassword: '',
+      })
+    })
   }
 
   render() {
