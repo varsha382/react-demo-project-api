@@ -13,13 +13,35 @@ export function sendSignUpInformation(user, callback, sucessCallback){
   })
   .then(function (response) {
     if(response.data.status===false) {
-      sucessCallback();
       console.log(response.data.message);
     }
     else{
       if(response.data.error){
         callback(response.data.error)
       }
+      else {
+        sucessCallback();
+        console.log(response.data.message);
+      }
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+export function sendSignInInformation(user, callback, sucessCallback){
+  axios.post('http://localhost:3001/api/log_in', {  
+    email: user.userEmail, 
+    password: user.password, 
+  })
+  .then(function (response) {
+    if(response.data.status===false) {
+      alert("Invalid Details")
+      console.log(response.data.message);
+    }
+    else{
+     alert("Successfully Login")
     }
   })
   .catch(function (error) {

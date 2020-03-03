@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Card, CardTitle, FormText } from 'reactstrap';
-import { sendSignUpInformation } from './Api'
+import { sendSignInInformation } from './Api'
 import '../style/signUp.css'
 
 
@@ -24,6 +24,7 @@ class SignIn extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    sendSignInInformation(this.state)
   }
 
   render() {
