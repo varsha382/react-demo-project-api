@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SignIn from './sign-in';
 import {
   Collapse,
   Navbar,
@@ -6,13 +7,15 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
+  NavLink
 } from 'reactstrap';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import SignUp from './sign-up';
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,20 +23,31 @@ const Header = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <Router>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Demo App</NavbarBrand>
+        <NavbarBrand href="/">Home</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          {/* <Nav className="mr-auto" navbar>
+          <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href="/sign-in">Sign In</NavLink>
             </NavItem>
-          </Nav> */}
+            <NavItem>
+              <NavLink href="/sign-up">Sign Up</NavLink>
+            </NavItem>
+          </Nav>
           {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
       </Navbar>
-    </div>
+      <Switch>
+        <Route path="/sign-in">
+          <SignIn />
+        </Route>
+        <Route path="/sign-up">
+          <SignUp />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
